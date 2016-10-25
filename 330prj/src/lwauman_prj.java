@@ -1,12 +1,12 @@
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 public class lwauman_prj {
     public static void main(String[] args) {
-        HuffTree ht = new HuffTree("abbcd");
-        System.out.println(Arrays.toString(ht.characters));
-        System.out.println(ht.frequency);
+        
     }
     private class HuffNode{
         int weight;
@@ -26,7 +26,7 @@ public class lwauman_prj {
     private static class HuffTree{
         private HuffNode root;
         private char[] characters;
-        private HashMap<Character,Integer> frequency;
+        private HashMap<Character,mapObj> frequency;
         
         private HuffTree(String toCompress){
             characters = new char[toCompress.length()];
@@ -45,11 +45,32 @@ public class lwauman_prj {
             frequency = new HashMap<>();
             for(int i = 0; i<characters.length; i++){
                 if(frequency.containsKey(characters[i]))
-                    frequency.put(characters[i], frequency.get(characters[i])+1);
+                    frequency.get(characters[i]).incFreq();
                 else
-                    frequency.put(characters[i], 1);
+                    frequency.put(characters[i], new mapObj(characters[i]));
+            }     
+        }
+ 
+        private class mapObj{
+            char value;
+            int freq;
+            
+            private mapObj(char val){
+                value = val;
+                freq = 1;
             }
-                
+
+            private char getValue() {
+                return value;
+            }
+
+            private int getFreq() {
+                return freq;
+            }
+            
+            private void incFreq(){
+                freq++;
+            }
         }
     }
 }
